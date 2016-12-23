@@ -1,0 +1,104 @@
+ <meta charset="utf-8">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+ 
+ <script type="text/javascript">
+ /*<![CDATA[*/
+	$(document).ready(function() {
+		console.log("Test konsoli");
+		$( "#scanArea" ).focus();
+		
+		var barcodes = new Array();
+		
+		$(window).keypress(function(e) {
+		   var ev = e || window.event;
+		   var key = ev.keyCode || ev.which;
+		   if (key == 13) {
+				barcodes.push($( "#scanArea" ).val());
+				console.log(barcodes);
+				var list='';
+				$.each( barcodes, function( index, value ){
+					list = list + value + '<br>\n';
+				});
+				console.log(list);
+				$( "#scanCell" ).html(list)
+				$( "#scanArea" ).val('');
+				e.preventDefault();
+		   }
+		   
+		   if (key == 9) {
+				$( "#scanArea" ).focus();
+				e.preventDefault();
+		   }
+	   });
+			
+		$( "#btnClear" ).on( "click", function() {
+		  $( "#scanArea" ).val('');
+		  barcodes=[];
+		  $( "#scanCell" ).html('');
+		  $( "#scanArea" ).focus();
+		});
+		
+		$( "#btnRefresh" ).on( "click", function() {
+		 
+		  $( "#scanArea" ).focus();
+		});
+		
+		$( "#btnSend" ).on( "click", function() {
+		  
+		  $( "#scanArea" ).focus();
+		});
+	});
+/*]]>*/
+ </script>
+ 
+<style>
+	table {
+		border-collapse: collapse;
+	}
+	
+	td {
+		width: 100px;
+	}
+
+	table, tr, td {
+		border: 1px solid black;
+		vertical-align: top;
+	}
+</style>
+
+<table>
+	<tr>
+		<td>
+			skanowanie
+		</td>
+		<td>
+			zeskanowane kody
+		</td>
+		<td>
+			informacje z bazy
+		</td>
+				<td>
+			akcje
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<textarea rows="50" cols="25" id="scanArea"></textarea> 
+		</td>
+		<td id="scanCell">
+			
+		</td>
+		<td>
+			 <button type="button" id="btnRefresh" >Odśwież</button>
+			 <button type="button" id="btnSend" >Wyślij</button>
+			 <button type="button" id="btnClear" >Kasuj</button> 
+		</td>
+				<td>
+			&nbsp;
+		</td>
+	</tr>
+
+
+
